@@ -1,6 +1,6 @@
-import { CreateUserDto } from './dto/create-user.dto';
-import { Controller, Post, Body, Delete } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto'
+import { Controller, Get, Post, Body, Delete, Param, Put } from '@nestjs/common'
+import { DeleteResult } from 'typeorm'
 
 @Controller('user')
 export class UserController {
@@ -11,16 +11,21 @@ export class UserController {
     return 'create'
   }
 
-
-  @Post('login')
-  async login(@Body() body): Promise<any> {
-    console.log(body)
-    return 'login'
+  @Put(':id')
+  async update(@Param('id') id, @Body() body): Promise<any> {
+    return body
   }
 
   @Delete(':id')
-  async delete(@Param('id') id): Promise<DeleteResult> {
+  async delete(@Param('id') id): Promise<any> {
     return ''
   }
-}
 
+  @Get('init')
+  async init(@Param('key') key): Promise<any> {
+    if (key) {
+      return key
+    }
+    return 'hello world'
+  }
+}

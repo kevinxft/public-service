@@ -19,6 +19,10 @@ export class UserService {
     }
   }
 
+  async findOne(username: string): Promise<UserEntity> {
+    return await this.userEntity.findOne({ username })
+  }
+
   async login(@Body() body): Promise<any> {
     const { username, password } = body
     if (!username || !password) {
