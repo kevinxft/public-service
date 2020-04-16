@@ -23,9 +23,10 @@ export class UserController {
 
   @Get('init')
   async init(@Param('key') key): Promise<any> {
-    if (key) {
-      return key
+    if (key === process.env.initKey) {
+      
+      return 'init success'
     }
-    return 'hello world'
+    return 'init failed'
   }
 }

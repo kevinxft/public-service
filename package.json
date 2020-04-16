@@ -1,8 +1,8 @@
 {
-  "name": "jwt-server",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "public-service",
+  "version": "1.0.0",
+  "description": "public service",
+  "author": "Kevin",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -29,6 +29,9 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.0.0",
+    "argon2": "^0.26.2",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

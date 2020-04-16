@@ -11,7 +11,6 @@ import { ConfigModule } from '@nestjs/config'
 @Module({
   imports: [
     UserModule,
-    PassportModule,
     ConfigModule.forRoot(),
     PassportModule.register({ defaultStrategy: 'jwt'}),
     JwtModule.register({
