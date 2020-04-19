@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module'
 import { FeedbackModule } from './feedback/feedback.module'
 import { ApplicationModule } from './application/application.module'
 import { AdminModule } from './admin/admin.module'
+import { ResourceController } from './resource/resource.controller';
+import { ResourceService } from './resource/resource.service';
+import { ResourceModule } from './resource/resource.module';
 
 @Module({
   imports: [
@@ -19,8 +22,9 @@ import { AdminModule } from './admin/admin.module'
     AppModule,
     ApplicationModule,
     AdminModule,
+    ResourceModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ResourceController],
+  providers: [AppService, ResourceService],
 })
 export class AppModule {}
