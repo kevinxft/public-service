@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
 import { FlattererEntity } from './flatterer.entity'
+import { ZaunEntity } from './zaun.entity'
 
-const MODEL = { flatterer: FlattererEntity }
+const MODEL = { flatterer: FlattererEntity, zaun: ZaunEntity }
 
 export const getEntity = name => {
   if (MODEL[name]) {
