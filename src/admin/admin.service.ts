@@ -1,6 +1,6 @@
-import { JwtService } from '@nestjs/jwt'
+import { AuthService } from './../auth/auth.service'
 import { AdminEntity } from './admin.entity'
-import { Injectable, Param, HttpException } from '@nestjs/common'
+import { Injectable, Param, HttpException, UnauthorizedException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
@@ -11,7 +11,7 @@ export class AdminService {
   constructor(
     @InjectRepository(AdminEntity)
     private readonly adminEntity: Repository<AdminEntity>,
-    private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
   ) {}
 
   async init(@Param('key') key): Promise<any> {
@@ -63,9 +63,18 @@ export class AdminService {
         username,
         role,
       }
+      const token = await this.authService.sign(_payload)
       return {
-        token: this.jwtService.sign(_payload),
+        token,
       }
     }
+  }
+
+  async validateUser(username) {
+    const admin = await this.adminEntity.findOne({ username })
+    if (!admin) {
+      return UnauthorizedException
+    }
+    return admin
   }
 }

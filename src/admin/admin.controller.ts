@@ -11,7 +11,10 @@ import {
   UsePipes,
   ValidationPipe,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
+
 
 @Controller('admin')
 export class AdminController {
@@ -20,6 +23,12 @@ export class AdminController {
   @Get('init/:key')
   async init(@Param('key') key): Promise<any> {
     return await this.adminService.init(key)
+  }
+
+  @UseGuards(AuthGuard())
+  @Get('test')
+  async test(): Promise<any> {
+    return 'test'
   }
 
   @Put('update/:username')

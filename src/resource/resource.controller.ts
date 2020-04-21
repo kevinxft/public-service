@@ -1,3 +1,4 @@
+import { AdminAuthGuard } from './../auth/guards/admin-auth.guard';
 import {
   Controller,
   Post,
@@ -7,18 +8,22 @@ import {
   Param,
   Delete,
   Put,
+  UseGuards,
 } from '@nestjs/common'
 import { ResourceService } from './resource.service'
+import { AuthGuard } from '@nestjs/passport'
 
 @Controller('resource')
 export class ResourceController {
   constructor(private readonly resourceService: ResourceService) {}
 
+  @UseGuards(AuthGuard())
   @Get(':name/:id')
   async getOne(@Param('name') name, @Param('id') id): Promise<any> {
     return await this.resourceService.get(name, id)
   }
 
+  @UseGuards(AdminAuthGuard)
   @Get(':name')
   async list(@Param('name') name, @Query() query: any): Promise<any> {
     return await this.resourceService.list(name, query)
@@ -31,7 +36,7 @@ export class ResourceController {
 
   @Put(':name/:id')
   async update(@Param('name') name, @Body() body): Promise<any> {
-    return await this.resourceService.update(name, body) 
+    return await this.resourceService.update(name, body)
   }
 
   @Delete(':name')
