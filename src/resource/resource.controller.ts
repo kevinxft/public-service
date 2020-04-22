@@ -1,4 +1,4 @@
-import { AdminAuthGuard } from './../auth/guards/admin-auth.guard';
+import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import {
   Controller,
   Post,
@@ -13,6 +13,7 @@ import {
 import { ResourceService } from './resource.service'
 import { AuthGuard } from '@nestjs/passport'
 
+
 @Controller('resource')
 export class ResourceController {
   constructor(private readonly resourceService: ResourceService) {}
@@ -23,7 +24,7 @@ export class ResourceController {
     return await this.resourceService.get(name, id)
   }
 
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(AuthGuard())
   @Get(':name')
   async list(@Param('name') name, @Query() query: any): Promise<any> {
     return await this.resourceService.list(name, query)

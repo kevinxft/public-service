@@ -13,7 +13,6 @@ import {
   HttpStatus,
   UseGuards,
 } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
 
 
 @Controller('admin')
@@ -25,7 +24,6 @@ export class AdminController {
     return await this.adminService.init(key)
   }
 
-  @UseGuards(AuthGuard())
   @Get('test')
   async test(): Promise<any> {
     return 'test'

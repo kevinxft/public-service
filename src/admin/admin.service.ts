@@ -11,7 +11,7 @@ export class AdminService {
   constructor(
     @InjectRepository(AdminEntity)
     private readonly adminEntity: Repository<AdminEntity>,
-    private readonly authService: AuthService,
+    // private readonly authService: AuthService,
   ) {}
 
   async init(@Param('key') key): Promise<any> {
@@ -63,9 +63,9 @@ export class AdminService {
         username,
         role,
       }
-      const token = await this.authService.sign(_payload)
+      // const token = await this.authService.sign(_payload)
       return {
-        token,
+        // token,
       }
     }
   }
