@@ -7,7 +7,6 @@ import { PassportModule } from '@nestjs/passport'
 import { JwtModule } from '@nestjs/jwt'
 import { AuthController } from './auth.controller'
 import { ConfigModule } from '@nestjs/config'
-import { JwtAuthGuard } from './guards/jwt-auth.guard'
 
 const passportModule = PassportModule.register({
   defaultStrategy: 'jwt',
