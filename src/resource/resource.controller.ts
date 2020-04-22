@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import {
   Controller,
   Post,
@@ -11,7 +10,10 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ResourceService } from './resource.service'
+import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { AuthGuard } from '@nestjs/passport'
+
 
 
 @Controller('resource')
@@ -24,7 +26,7 @@ export class ResourceController {
     return await this.resourceService.get(name, id)
   }
 
-  @UseGuards(AuthGuard())
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Get(':name')
   async list(@Param('name') name, @Query() query: any): Promise<any> {
     return await this.resourceService.list(name, query)

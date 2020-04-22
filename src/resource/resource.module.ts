@@ -1,3 +1,4 @@
+import { AdminModule } from './../admin/admin.module';
 import { AuthModule } from './../auth/auth.module'
 import { ConfigModule } from '@nestjs/config'
 import { FlattererEntity } from './model/flatterer.entity'
@@ -9,6 +10,7 @@ import { ResourceController } from './resource.controller'
 @Module({
   imports: [
     forwardRef(() => AuthModule),
+    AdminModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forFeature([FlattererEntity]),
   ],
