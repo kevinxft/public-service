@@ -1,6 +1,9 @@
 import { AuthService } from './../auth/auth.service'
 import { AdminEntity } from './admin.entity'
-import { Injectable, Param, HttpException, UnauthorizedException } from '@nestjs/common'
+import {
+  Injectable,
+  Param,
+} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
@@ -70,11 +73,17 @@ export class AdminService {
     }
   }
 
-  async validateUser({username}) {
+  async validateUser({ username }) {
     const admin = await this.adminEntity.findOne({ username })
     if (admin && admin.role === 64) {
-      return admin
+      const { password, ...rest } = admin
+      return rest
     }
     return null
+  }
+
+  async isAdmin(username: string = ''): Promise<boolean> {
+    const admin = await this.adminEntity.findOne({ username })
+    return admin && admin.role === 64
   }
 }

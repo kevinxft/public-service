@@ -2,5 +2,6 @@
   "cSpell.words": [
     "appid",
     "zaun"
-  ]
+  ],
+  "debug.node.autoAttach": "on"
 }
