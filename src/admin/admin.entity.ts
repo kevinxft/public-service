@@ -7,7 +7,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm'
-import * as argon2 from 'argon2'
+import { PasswordTransformer } from './password.transformer'
 
 @Entity('admin')
 export class AdminEntity {
@@ -20,21 +20,14 @@ export class AdminEntity {
   @Column({ length: 30 })
   username: string
 
-  @Column()
+  @Column({
+    length: 255,
+    transformer: new PasswordTransformer(),
+  })
   password: string
 
   @Column({ default: 64 })
   role: number
-
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await argon2.hash(this.password)
-  }
-
-  @BeforeUpdate()
-  async hashUpdatePassword() {
-    this.password = await argon2.hash(this.password)
-  }
 
   @CreateDateColumn()
   created: Date

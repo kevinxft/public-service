@@ -1,13 +1,11 @@
 import { AuthService } from './../auth/auth.service'
 import { AdminEntity } from './admin.entity'
-import {
-  Injectable,
-  Param,
-} from '@nestjs/common'
+import { Injectable, Param } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-
-import * as argon2 from 'argon2'
+import * as crypto from 'crypto-js'
+import * as base64 from 'crypto-js/enc-base64'
+const { HmacSHA1 } = crypto
 
 @Injectable()
 export class AdminService {
@@ -60,7 +58,10 @@ export class AdminService {
     if (!admin) {
       return null
     }
-    if (await argon2.verify(admin.password, password)) {
+    const passwordSecret = process.env.passwordSecret
+    if (
+      base64.stringify(HmacSHA1(password, passwordSecret)) === admin.password
+    ) {
       const { role } = admin
       const _payload = {
         username,
@@ -71,6 +72,7 @@ export class AdminService {
         token,
       }
     }
+    return null
   }
 
   async validateUser({ username }) {

@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module, forwardRef } from '@nestjs/common'
 import { AdminController } from './admin.controller'
 import { AdminService } from './admin.service'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { ConfigModule } from '@nestjs/config'
     TypeOrmModule.forFeature([AdminEntity]),
   ],
   controllers: [AdminController],
-  providers: [AdminService],
+  providers: [AdminService, ConfigService],
   exports: [AdminService]
 })
 export class AdminModule {}
