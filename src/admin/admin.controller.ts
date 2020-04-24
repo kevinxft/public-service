@@ -13,6 +13,8 @@ import {
   HttpStatus,
   UseGuards,
 } from '@nestjs/common'
+import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 
 
 @Controller('admin')
@@ -24,11 +26,7 @@ export class AdminController {
     return await this.adminService.init(key)
   }
 
-  @Get('test')
-  async test(): Promise<any> {
-    return 'test'
-  }
-
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Put('update/:username')
   async update(@Param('username') username): Promise<any> {
     return 'update'
